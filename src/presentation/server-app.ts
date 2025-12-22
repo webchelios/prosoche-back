@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, { Router, urlencoded } from "express";
 
 export class ServerApp {
 
@@ -9,9 +9,12 @@ export class ServerApp {
         private readonly router: Router
     ) { }
 
-    public init() {
+    public start() {
+
+        this.app.use(urlencoded({ extended: true }))
 
         this.app.use(this.router)
+
 
         this.app.listen(this.port, () => {
             console.log(`Server running on port ${this.port}`)
