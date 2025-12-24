@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { AuthDatasourceImpl, AuthRepositoryImpl } from "../../infrastructure"
-import { AuthController } from "./controller"
+import { AuthController } from "./auth-controller"
 import { AuthMiddleware } from "../middlewares/auth.middleware"
 
 export class AuthRouter {
