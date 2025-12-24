@@ -24,11 +24,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
             console.log(error)
             throw CustomError.internalServer('Internal Server error')
         }
-
-
-
     }
-
 
     public async registerUser(registerUserDto: RegisterUserDto): Promise<UserEntity> {
         const existUser = await UserModel.findOne({ email: registerUserDto.email })

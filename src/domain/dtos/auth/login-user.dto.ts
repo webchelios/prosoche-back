@@ -2,11 +2,9 @@ import { regularExps } from "../../../config"
 
 export class LoginUserDto {
 
-
     private constructor(
         public email: string,
         public password: string,
-
     ) { }
 
     static create(object: { [key: string]: any }): [string?, LoginUserDto?] {
