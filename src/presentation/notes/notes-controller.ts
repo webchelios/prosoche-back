@@ -1,13 +1,17 @@
 import { Request, Response } from "express";
+import { NotesRepository } from "../../domain";
 
 
 const notes = [{ id: 1, title: 'Titulo', content: 'hola', createdAt: new Date() }, { id: 2, title: 'Titulo2', content: 'adios', createdAt: new Date() }]
 
 export class NotesController {
-    constructor() { }
+    constructor(
+
+        private readonly notesRepository: NotesRepository
+    ) { }
 
     getNotes = (req: Request, res: Response) => {
-        return res.status(200).json(notes)
+        this.notesRepository.getAll()
     }
 
     getNoteById = (req: Request, res: Response) => {
