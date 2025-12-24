@@ -2,7 +2,7 @@ export class UpdateNoteDto {
 
 
     private constructor(
-        public id: number,
+        public id: string,
         public title: string,
         public content: string,
 

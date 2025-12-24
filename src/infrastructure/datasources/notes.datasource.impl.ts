@@ -1,25 +1,46 @@
-import { NoteEntity, NotesDatasource } from "../../domain";
+import { NoteModel } from "../../data";
+import { CustomError, NoteEntity, NotesDatasource } from "../../domain";
 import { CreateNoteDto } from "../../domain/dtos/notes/create-note.dto";
 import { UpdateNoteDto } from "../../domain/dtos/notes/update-note.dto";
-
-const notes = [{ id: 1, title: 'Titulo', content: 'hola', createdAt: new Date() }, { id: 2, title: 'Titulo2', content: 'adios', createdAt: new Date() }]
-
+import { NotesMapper } from "../mappers/notes.mapper";
 
 export class NotesDatasourceImpl implements NotesDatasource {
-    create(createNoteDto: CreateNoteDto): Promise<NoteEntity> {
-        throw new Error("Method not implemented.");
+    async create(createNoteDto: CreateNoteDto): Promise<NoteEntity> {
+        const note = await NoteModel.create(createNoteDto)
+        return NotesMapper.noteEntityFromObject(note)
     }
-    getAll(): Promise<NoteEntity[]> {
-        throw new Error("Method not implemented.");
+
+    async getAll(): Promise<NoteEntity[]> {
+        const notes = await NoteModel.find()
+        return notes.map((note) =>
+            NotesMapper.noteEntityFromObject(note)
+        )
     }
-    findById(id: number): Promise<NoteEntity> {
-        throw new Error("Method not implemented.");
+
+    async findById(id: string): Promise<NoteEntity> {
+        const note = await NoteModel.findById(id)
+        if (!note) throw CustomError.notFound("Note not found")
+        return NotesMapper.noteEntityFromObject(note)
     }
-    updateById(updateNoteDto: UpdateNoteDto): Promise<NoteEntity> {
-        throw new Error("Method not implemented.");
+
+    async updateById(updateNoteDto: UpdateNoteDto): Promise<NoteEntity> {
+        const note = await NoteModel.findByIdAndUpdate(
+            updateNoteDto.id,
+            {
+                title: updateNoteDto.title,
+                content: updateNoteDto.content,
+            },
+            { new: true }
+        )
+
+        if (!note) throw CustomError.notFound("Note not found")
+        return NotesMapper.noteEntityFromObject(note)
     }
-    deleteById(id: number): Promise<NoteEntity> {
-        throw new Error("Method not implemented.");
+
+    async deleteById(id: string): Promise<NoteEntity> {
+        const note = await NoteModel.findByIdAndDelete(id);
+        if (!note) throw CustomError.notFound("Note not found");
+        return NotesMapper.noteEntityFromObject(note);
     }
 
 }
