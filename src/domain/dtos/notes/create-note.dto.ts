@@ -2,8 +2,8 @@ export class CreateNoteDto {
 
 
     private constructor(
-        public title?: string,
-        public content?: string,
+        public title: string,
+        public content: string,
 
     ) { }
 

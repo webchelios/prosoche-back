@@ -8,7 +8,6 @@ const noteSchema = new mongoose.Schema({
     content: {
         type: String,
         required: [true, 'Content is required'],
-        unique: true,
     },
     createdAt: {
         type: Date,

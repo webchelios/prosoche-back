@@ -17,7 +17,7 @@ export class UpdateNoteDto {
         return returnObj
     }
 
-    static create(object: { [key: string]: any }): [string?, UpdateNoteDto?] {
+    static create(object: Record<string, any>): [string?, UpdateNoteDto?] {
         const { id, title, content } = object
 
         if (!title) throw 'Title is required'

@@ -17,7 +17,7 @@ export class NotesRouter {
 
         router.post('/', controller.createNote)
 
-        router.put('/:id', controller.createNote)
+        router.put('/:id', controller.updateNote)
         router.delete('/:id', controller.deleteNote)
 
         return router
